@@ -20,3 +20,15 @@ class PostNode(SQLAlchemyObjectType):
 class PostConnection(relay.Connection):
     class Meta:
         node = PostNode
+
+class TagNode(SQLAlchemyObjectType):
+    class Meta:
+        interfaces = (relay.Node,)
+        model = models.Tag
+        connection_field_factory = connection_field_factory
+
+
+class TagConnection(relay.Connection):
+    class Meta:
+        node = TagNode
+
