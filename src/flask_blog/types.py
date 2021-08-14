@@ -21,6 +21,7 @@ class PostConnection(relay.Connection):
     class Meta:
         node = PostNode
 
+
 class TagNode(SQLAlchemyObjectType):
     class Meta:
         interfaces = (relay.Node,)
@@ -31,4 +32,3 @@ class TagNode(SQLAlchemyObjectType):
 class TagConnection(relay.Connection):
     class Meta:
         node = TagNode
-

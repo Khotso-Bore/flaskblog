@@ -16,12 +16,13 @@ class Post(db.Model):
     def __repr__(self):
         return "<Post id={}, title='{}'>".format(self.id, self.title)
 
+
 class Tag(db.Model):
     __tablename__ = "tags"
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'),nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
     post = db.relationship("Post", back_populates="tags")
 
     def __repr__(self):
