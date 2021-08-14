@@ -114,3 +114,19 @@ def test_filter_post_by_date(app_context, client):
     assert len(posts) == 1
     assert posts[0].created_at.date() == date
     
+def test_login(app_context, client):
+    user = models.User(username="Jeff",password="12345")
+
+    db.session.add(user)
+    db.session.commit()
+
+    resp = client.post(
+        f"/login",
+        data=dict(username="Jeff",password="12345"),
+        follow_redirects=True,
+    )
+    
+    user = models.User.query.all()
+    assert len(user) == 1
+    assert flask.request.path == "/loggin"
+    assert b"You are logged in" in resp.data

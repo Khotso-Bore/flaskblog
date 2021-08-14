@@ -15,6 +15,10 @@ def create_app(config=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from .loginmanager import lm
+
+    lm.init_app(app)
+
     from .views import graphql, posts
 
     app.register_blueprint(posts)

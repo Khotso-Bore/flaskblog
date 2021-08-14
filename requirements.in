@@ -1,6 +1,7 @@
 flask
 flask-cors
 flask-graphql
+flask-login
 graphene
 flask-migrate
 flask-sqlalchemy

@@ -27,3 +27,26 @@ class Tag(db.Model):
 
     def __repr__(self):
         return "<Tag id={}, content='{}'>".format(self.id, self.content)
+
+
+class User(db.Model):
+    __tablename__ = "user"
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.id
+
+    def is_authenticated(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def __repr__(self):
+        return "<User id={}, username='{}'>".format(self.id, self.username)

@@ -2,9 +2,11 @@ from flask import Blueprint, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 
 from ..database import db
-from ..models import Post, Tag
+from ..models import Post, Tag, User
+from ..loginmanager import lm
 from datetime import datetime
 from sqlalchemy import func
+from flask_login import login_user, login_required, logout_user
 
 posts = Blueprint("posts", __name__)
 
@@ -104,3 +106,38 @@ def date():
         ).all()
         return render_template("index.html", posts=posts)
     return render_template("index.html", posts=[])
+
+
+@lm.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
+@posts.route("/login", methods=("GET", "POST"))
+def login():
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+        user = User.query.filter(
+            User.username == username, User.password == password
+        ).one()
+
+        if user:
+            login_user(user)
+            return redirect("/loggedin")
+        return render_template("who are you?")
+    return render_template("index.html", posts=[])
+
+
+@posts.route("/loggedin")
+@login_required
+def loggedin():
+    return "You are logged in"
+
+
+@posts.route("/loggout")
+@login_required
+def logout():
+    logout_user()
+    return render_template("You are logged out!")

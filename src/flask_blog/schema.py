@@ -46,10 +46,7 @@ class Query(graphene.ObjectType):
         )
 
         date = kwargs.get("date")
-        return query.filter(
-            func.date(models.Post.created_at)
-            == date
-        ).all()
+        return query.filter(func.date(models.Post.created_at) == date).all()
 
     def resolve_tags(self, info, *args, **kwargs):
         query = SQLAlchemyConnectionField.get_query(
