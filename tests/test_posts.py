@@ -128,5 +128,22 @@ def test_login(app_context, client):
     
     user = models.User.query.all()
     assert len(user) == 1
-    assert flask.request.path == "/loggin"
+    assert flask.request.path == "/loggedin"
     assert b"You are logged in" in resp.data
+
+def test_login_unsuccseful(app_context, client):
+    user = models.User(username="Jeff",password="12345")
+
+    db.session.add(user)
+    db.session.commit()
+
+    resp = client.post(
+        f"/login",
+        data=dict(username="Jeff",password="1234"),
+        follow_redirects=True,
+    )
+    
+    user = models.User.query.all()
+    assert len(user) == 1
+    assert flask.request.path == "/login"
+    assert b"who are you?" in resp.data

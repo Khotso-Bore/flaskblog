@@ -121,12 +121,12 @@ def login():
         password = request.form["password"]
         user = User.query.filter(
             User.username == username, User.password == password
-        ).one()
+        ).first()
 
         if user:
             login_user(user)
             return redirect("/loggedin")
-        return render_template("who are you?")
+        return "who are you?"
     return render_template("index.html", posts=[])
 
 
