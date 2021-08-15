@@ -73,7 +73,7 @@ class DeletePostInput:
 
 
 class DeletePostSuccess(graphene.ObjectType):
-    post = graphene.String(required=True)
+    msg = graphene.String(required=True)
 
 
 class DeletePostOutput(graphene.Union):
@@ -95,4 +95,4 @@ class DeletePost(relay.ClientIDMutation):
         db.session.delete(delete_post)
         db.session.commit()
 
-        return DeletePostSuccess(post="deleted")
+        return DeletePostSuccess(msg="deleted")

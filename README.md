@@ -76,6 +76,48 @@ mutation {
 }
 ```
 
+### Edit a post
+
+To edit post via the GraphQL API execute the following mutation in GraphiQL:
+
+```
+mutation {
+  editPost (input: {
+    id: 1
+    title: "Test Post"
+    content: "Test content"
+  }) {
+    __typename
+    ... on EditPostSuccess {
+      post {
+        id
+        title
+        content
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+```
+
+### Delete a post
+
+To delete post via the GraphQL API execute the following mutation in GraphiQL:
+
+```
+mutation {
+  deletePost (input: {
+    id: 1
+  }) {
+    __typename
+    ... on DeletePostSuccess {
+      message
+    }
+  }
+}
+```
+
 ### Fetch all posts
 
 To fetch all posts execute the following query in GraphiQL:
@@ -83,6 +125,43 @@ To fetch all posts execute the following query in GraphiQL:
 ```
 {
   posts {
+    edges {
+      node {
+        id
+        title
+        content
+        createdAt
+      }
+    }
+  }
+}
+```
+### Filter posts by tag
+
+To filter posts bt tag execute the following query in GraphiQL:
+
+```
+{
+  postsbytag (tag:"first") {
+    edges {
+      node {
+        id
+        title
+        content
+        createdAt
+      }
+    }
+  }
+}
+```
+
+### Filter posts by date created
+
+To filter posts bt date created execute the following query in GraphiQL:
+
+```
+{
+  postsbydate (date:"2021-08-15") {
     edges {
       node {
         id

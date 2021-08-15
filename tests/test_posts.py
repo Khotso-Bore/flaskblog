@@ -78,7 +78,7 @@ def test_filter_post_by_tag(app_context, client):
     db.session.commit()
 
     resp = client.post(
-        f"/fil",
+        f"/tag",
         data=dict(tag="post"),
         follow_redirects=True,
     )
@@ -87,7 +87,7 @@ def test_filter_post_by_tag(app_context, client):
     assert b"SecondPost" in resp.data
 
     resp2 = client.post(
-        f"/fil",
+        f"/tag",
         data=dict(tag="post2"),
         follow_redirects=True,
     )

@@ -83,8 +83,15 @@ def delete(post_id):
     return redirect(url_for("posts.index"))
 
 
-@posts.route("/fil", methods=("POST",))
+@posts.route(
+    "/tag",
+    methods=(
+        "GET",
+        "POST",
+    ),
+)
 def fil():
+    posts = Post.query.all()
     if request.method == "POST":
         tag = request.form["tag"]
 
@@ -92,11 +99,12 @@ def fil():
             Tag.content == tag, Post.id == Tag.post_id
         ).all()
         return render_template("index.html", posts=posts)
-    return render_template("index.html", posts=[])
+    return render_template("index.html", posts=posts)
 
 
 @posts.route("/date", methods=("GET", "POST"))
 def date():
+    posts = Post.query.all()
     if request.method == "POST":
         date = request.form["date"]
 
@@ -105,7 +113,7 @@ def date():
             == datetime.strptime(date, "%Y-%m-%d").date()
         ).all()
         return render_template("index.html", posts=posts)
-    return render_template("index.html", posts=[])
+    return render_template("index.html", posts=posts)
 
 
 @lm.user_loader

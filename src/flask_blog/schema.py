@@ -10,7 +10,7 @@ from sqlalchemy import func
 class Query(graphene.ObjectType):
     node = relay.Node.Field()
     posts = SQLAlchemyConnectionField(PostConnection)
-    postbytag = SQLAlchemyConnectionField(
+    postsbytag = SQLAlchemyConnectionField(
         PostConnection, tag=graphene.List(graphene.String)
     )
     postsbydate = SQLAlchemyConnectionField(
@@ -31,7 +31,7 @@ class Query(graphene.ObjectType):
 
         return query.all()
 
-    def resolve_postbytag(self, info, *args, **kwargs):
+    def resolve_postsbytag(self, info, *args, **kwargs):
         query = SQLAlchemyConnectionField.get_query(
             models.Post, info, *args, **kwargs
         )
