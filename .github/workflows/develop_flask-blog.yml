@@ -29,6 +29,15 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
+    
+    - name: Install more dependencies
+      run: |
+        make dev_install
+        make db_upgrade
+        make seed_db
+      
+    - name: run app
+      run: make run
 
     # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
