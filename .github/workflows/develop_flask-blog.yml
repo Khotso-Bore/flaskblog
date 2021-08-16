@@ -26,12 +26,10 @@ jobs:
       run: |
         python -m venv venv
         source venv/bin/activate
-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
     
     - name: Install more dependencies
       run: |
+        make clean
         make dev_install
         make db_upgrade
         make seed_db
@@ -66,3 +64,4 @@ jobs:
           app-name: 'flask-blog'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_eca8142cee644e32adc39b728db87f3f }}
+        run: make run
