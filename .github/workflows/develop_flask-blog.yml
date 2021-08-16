@@ -64,4 +64,4 @@ jobs:
           app-name: 'flask-blog'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_eca8142cee644e32adc39b728db87f3f }}
-        run: make run
+          pakage: wsgi.py
