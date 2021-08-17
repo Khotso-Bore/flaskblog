@@ -161,7 +161,7 @@ To filter posts bt date created execute the following query in GraphiQL:
 
 ```
 {
-  postsbydate (date:"2021-08-15") {
+  postsbydate (date:"2021-08-17") {
     edges {
       node {
         id
